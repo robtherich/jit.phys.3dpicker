@@ -1,8 +1,11 @@
 autowatch = 1;
 outlets = 2;
 
+var lstnr;
+var inited = false;
+
 var ghostanim = new JitterObject("jit.anim.node");
-var is_attached = false;
+var ganim_attached = false;
 var gname = ghostanim.name+"_ghost";
 
 // for the picking constraint
@@ -32,13 +35,26 @@ var col_state = State.NONE;
 function postln(s) {
 	post(s+"\n");
 }
+postln.local = 1;
 
 function dpost(s) {
 	postln(s);
 }
+dpost.local = 1;
+
+function callbackfun(event)
+{
+	if (event.eventname === "swap" || event.eventname === "draw") {
+		bang();
+	}
+}
+callbackfun.local = 1;
 
 function bang() {
-	if(!is_attached)
+	if(!inited) 
+		init();
+
+	if(!ganim_attached)
 		ghostanim.update_node();
 
 	outlet(0, "position", ghostanim.worldpos);
@@ -56,15 +72,24 @@ function init() {
 	outlet(0, "getworldname", gname);
 }
 
+function drawto(dname) {
+	dpost("drawto: "+dname);
+	lstnr = new JitterListener(dname, callbackfun);
+}
+
 function worldname(wname) {
 	dpost("world name: "+wname);
+
+	if(wname !== "")
+		inited = true;
+
 	p2p.worldname = wname;
 }
 
 function anim(aname) {
 	dpost("anim: " + aname);
 	ghostanim.anim = aname;
-	is_attached = true;
+	ganim_attached = true;
 	init();
 }
 
@@ -147,3 +172,4 @@ function create_picker() {
 	col_state = State.ACTIVE;
 	dpost(p2p.body1+" "+p2p.position1+" "+p2p.position2);
 }
+create_picker.local = 1;

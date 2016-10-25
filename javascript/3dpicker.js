@@ -17,6 +17,7 @@ p2pnode.anim = ghostanim.name;
 // for converting body contact position world to local
 var anode = new JitterObject("jit.anim.node");
 var bodyposition;
+var bodyrotate;
 var contactposition;
 
 // for getting positions from phys.multiple 
@@ -38,7 +39,7 @@ function postln(s) {
 postln.local = 1;
 
 function dpost(s) {
-	postln(s);
+	//postln(s);
 }
 dpost.local = 1;
 
@@ -98,6 +99,14 @@ function position() {
 	ghostanim.position = a;
 }
 
+function strength(s) {
+	p2p.strength = s;
+}
+
+function stretch(s) {
+	p2p.stretch = s;
+}
+
 function release() {
 	col_state = State.NONE;
 	p2p.body1 = "";
@@ -126,13 +135,15 @@ function collisions() {
 				col_state = State.PMULT;
 				dpost("name: "+pmultname+", indices: "+cell_indices);
 				outlet(1, "name", pmultname);
+				outlet(1, "getrotoutname");
 				outlet(1, "getposoutname");
 			}
 			else {
 				col_state = State.PBODY;
 				dpost("name: "+colbodyname);
 				outlet(1, "name", colbodyname);
-				outlet(1, "getposition");					
+				outlet(1, "getrotate");
+				outlet(1, "getposition");
 			}
 			break;
 		}
@@ -143,22 +154,28 @@ function proxy() {
 	var a = arrayfromargs(arguments);
 	dpost(a);
 
-	if(a[0] === "posoutname") {
+	if(a[0] === "rotoutname") {
+		jmat = new JitterMatrix(a[1]);
+		bodyrotate = jmat.getcell(cell_indices);
+	}
+	else if(a[0] === "posoutname") {
 		jmat = new JitterMatrix(a[1]);
 		bodyposition = jmat.getcell(cell_indices);
+		create_picker();
+	}
+	else if(a[0] === "rotate") {
+		bodyrotate = a.slice(1, a.length);
 	}
 	else {
 		bodyposition = a.slice(1, a.length);
+		create_picker();
 	}
-	dpost("bodyposition vals: "+bodyposition);
-
-	create_picker();
 }
 
 function create_picker() {
-	
 	// position 1
 	anode.position = bodyposition;
+	anode.rotate = bodyrotate;
 	anode.update_node();
 	p2p.position1 = anode.worldtolocal(contactposition);
 	
@@ -170,6 +187,7 @@ function create_picker() {
 
 	p2p.body1 = colbodyname;
 	col_state = State.ACTIVE;
+
 	dpost(p2p.body1+" "+p2p.position1+" "+p2p.position2);
 }
 create_picker.local = 1;

@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 340.0, 156.0, 671.0, 441.0 ],
+		"rect" : [ 340.0, 156.0, 714.0, 422.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -66,12 +66,12 @@
 				"box" : 				{
 					"id" : "obj-37",
 					"maxclass" : "newobj",
-					"numinlets" : 4,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 461.0, 161.0, 162.0, 22.0 ],
+					"numinlets" : 6,
+					"numoutlets" : 6,
+					"outlettype" : [ "", "", "", "", "", "" ],
+					"patching_rect" : [ 422.5, 173.0, 248.0, 22.0 ],
 					"style" : "",
-					"text" : "routepass anim drawto done"
+					"text" : "routepass anim drawto strength stretch done"
 				}
 
 			}
@@ -82,7 +82,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 406.0, 128.0, 74.0, 22.0 ],
+					"patching_rect" : [ 367.5, 146.0, 74.0, 22.0 ],
 					"style" : "",
 					"text" : "patcherargs"
 				}
@@ -95,7 +95,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "int" ],
 					"patching_rect" : [ 76.0, 37.0, 30.0, 30.0 ],
 					"style" : ""
 				}
@@ -229,7 +229,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 206.0, 293.0, 155.0, 22.0 ],
 					"style" : "",
-					"text" : "jit.phys.ghost @collisions 1"
+					"text" : "jit.phys.ghost"
 				}
 
 			}
@@ -449,6 +449,26 @@
 					"destination" : [ "obj-121", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"source" : [ "obj-37", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"color" : [ 0.0, 0.25098, 0.501961, 1.0 ],
+					"destination" : [ "obj-121", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-37", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"color" : [ 0.0, 0.25098, 0.501961, 1.0 ],
+					"destination" : [ "obj-121", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-37", 1 ]
 				}
 
@@ -469,7 +489,7 @@
 					"destination" : [ "obj-2", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-37", 3 ]
+					"source" : [ "obj-37", 5 ]
 				}
 
 			}
@@ -482,15 +502,7 @@
 				}
 
 			}
- ],
-		"dependency_cache" : [ 			{
-				"name" : "3dpicker.js",
-				"bootpath" : "~/dev/cycling/jit.phys.3dpicker/javascript",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
- ],
-		"autosave" : 0
+ ]
 	}
 
 }

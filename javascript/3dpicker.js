@@ -1,9 +1,15 @@
-autowatch = 1;
-outlets = 2;
+//autowatch = 1;
+outlets = 3;
 
 var lstnr;
 var inited = false;
 
+// the regular expression for determining if colliding body is a phys.multiple instance, and if so what the cell indices are.
+// makes the determination if the name ends with one or more underscores followed by a number, 
+// so don't name your normal phys.body objects anything like "pbody_1" or it will identify as a phys.multiple instance
+var re = /([^_]+)_(\d)_?(\d?)_?(\d?)/;
+
+// for updating the external phys.ghost transform
 var ghostanim = new JitterObject("jit.anim.node");
 var ganim_attached = false;
 var gname = ghostanim.name+"_ghost";
@@ -32,6 +38,9 @@ var State = {
     ACTIVE : 3
 }
 var col_state = State.NONE;
+
+var dynamics = 1;
+declareattribute("dynamics");
 
 function postln(s) {
 	post(s+"\n");
@@ -99,6 +108,11 @@ function position() {
 	ghostanim.position = a;
 }
 
+function scale() {
+	var a = arrayfromargs(arguments);
+	ghostanim.scale = a;
+}
+
 function strength(s) {
 	p2p.strength = s;
 }
@@ -126,7 +140,6 @@ function collisions() {
 			colbodyname = ((b1 === gname) ? b2 : b1);
 			contactposition = coldict["position"];
 
-			var re = /([^_]+)_(\d)_?(\d?)_?(\d?)/;
 			var splits = colbodyname.split(re);
 			
 			if(splits.length > 1) {
@@ -161,33 +174,45 @@ function proxy() {
 	else if(a[0] === "posoutname") {
 		jmat = new JitterMatrix(a[1]);
 		bodyposition = jmat.getcell(cell_indices);
-		create_picker();
+		update_picker();
 	}
 	else if(a[0] === "rotate") {
 		bodyrotate = a.slice(1, a.length);
 	}
 	else {
 		bodyposition = a.slice(1, a.length);
-		create_picker();
+		update_picker();
 	}
 }
 
-function create_picker() {
+function update_picker() {
 	// position 1
 	anode.position = bodyposition;
 	anode.rotate = bodyrotate;
 	anode.update_node();
-	p2p.position1 = anode.worldtolocal(contactposition);
-	
-	// position 2
-	ghostanim.update_node();
-	p2pnode.position = ghostanim.worldtolocal(contactposition);
-	p2pnode.update_node();
-	p2p.position2 = p2pnode.worldpos;
+	var p1 = anode.worldtolocal(contactposition);		
 
-	p2p.body1 = colbodyname;
-	col_state = State.ACTIVE;
+	// position 2
+	//ghostanim.update_node();
+	p2pnode.position = ghostanim.worldtolocal(contactposition);
+
+	if(dynamics) {
+		p2p.position1 = p1;
+		p2pnode.update_node();
+		p2p.position2 = p2pnode.worldpos;
+
+		p2p.body1 = colbodyname;
+		col_state = State.ACTIVE;
+	}
+	else {
+		col_state = State.NONE;
+	}
+
+	outlet(2, "name", colbodyname);
+	outlet(2, "world_position", contactposition);
+	outlet(2, "body_local_position", p1);
+	outlet(2, "ghost_local_position", p2pnode.position);
 
 	dpost(p2p.body1+" "+p2p.position1+" "+p2p.position2);
 }
-create_picker.local = 1;
+update_picker.local = 1;

@@ -40,7 +40,7 @@ var State = {
 var col_state = State.NONE;
 
 var dynamics = 1;
-declareattribute("dynamics");
+declareattribute("dynamics", null, "setdynamics");
 
 function postln(s) {
 	post(s+"\n");
@@ -80,6 +80,12 @@ function init() {
 	p2pnode.update_node();
 	outlet(0, "name", gname);
 	outlet(0, "getworldname", gname);
+}
+
+function setdynamics(v) {
+	dynamics = v;
+	if(!dynamics)
+		release();
 }
 
 function drawto(dname) {
@@ -135,30 +141,38 @@ function collisions() {
 		for(var i in jsd) {		// iterate the collisions, we usually only care about the first one
 			d = new Dict(i);	// the actual collision info dict
 			var coldict = JSON.parse(d.stringify());
+
+			// we must call freepeer on the dict here, otherwise the jit.phys.ghost collisions won't properly update
+			d.freepeer();
+			
 			var b1 = coldict["body1"];
 			var b2 = coldict["body2"];
 			colbodyname = ((b1 === gname) ? b2 : b1);
-			contactposition = coldict["position"];
 
-			var splits = colbodyname.split(re);
-			
-			if(splits.length > 1) {
-				pmultname = splits[1];
-				cell_indices = splits.slice(2, splits.length-1);
-				col_state = State.PMULT;
-				dpost("name: "+pmultname+", indices: "+cell_indices);
-				outlet(1, "name", pmultname);
-				outlet(1, "getrotoutname");
-				outlet(1, "getposoutname");
+			// don't process wallbody collisions
+			if(colbodyname.indexOf("wallbody") === -1) {
+
+				contactposition = coldict["position"];
+				var splits = colbodyname.split(re);
+				
+				if(splits.length > 1) {
+					pmultname = splits[1];
+					cell_indices = splits.slice(2, splits.length-1);
+					col_state = State.PMULT;
+					dpost("name: "+pmultname+", indices: "+cell_indices);
+					outlet(1, "name", pmultname);
+					outlet(1, "getrotoutname");
+					outlet(1, "getposoutname");
+				}
+				else {
+					col_state = State.PBODY;
+					dpost("name: "+colbodyname);
+					outlet(1, "name", colbodyname);
+					outlet(1, "getrotate");
+					outlet(1, "getposition");
+				}
+				break;
 			}
-			else {
-				col_state = State.PBODY;
-				dpost("name: "+colbodyname);
-				outlet(1, "name", colbodyname);
-				outlet(1, "getrotate");
-				outlet(1, "getposition");
-			}
-			break;
 		}
 	}
 }

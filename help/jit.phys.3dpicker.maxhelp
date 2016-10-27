@@ -4,12 +4,12 @@
 		"appversion" : 		{
 			"major" : 7,
 			"minor" : 3,
-			"revision" : 1,
-			"architecture" : "x86",
+			"revision" : 0,
+			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 253.0, 79.0, 883.0, 635.0 ],
+		"rect" : [ 304.0, 123.0, 883.0, 635.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -67,12 +67,12 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
-							"architecture" : "x86",
+							"revision" : 0,
+							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 253.0, 105.0, 883.0, 609.0 ],
+						"rect" : [ 304.0, 149.0, 883.0, 609.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -108,7 +108,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 175.0, 155.0, 164.0, 21.0 ],
-									"presentation_rect" : [ 111.5, 127.0, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "toggle constraint dynamics",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -204,7 +203,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 577.0, 63.5, 220.0, 55.0 ],
-									"presentation_rect" : [ 486.5, 118.0, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "control picker transforms by attaching to an external anim.node",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -232,9 +230,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 260.0, 528.0, 213.0, 22.0 ],
-									"presentation_rect" : [ 499.0, 555.0, 0.0, 0.0 ],
-									"style" : "",
-									"text" : "0.088035 -0.933831 0"
+									"style" : ""
 								}
 
 							}
@@ -246,9 +242,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 260.0, 500.761902, 213.0, 22.0 ],
-									"presentation_rect" : [ 377.0, 531.0, 0.0, 0.0 ],
-									"style" : "",
-									"text" : "-0.566363 0.809059 0"
+									"style" : ""
 								}
 
 							}
@@ -260,9 +254,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 260.0, 473.523804, 213.0, 22.0 ],
-									"presentation_rect" : [ 417.0, 499.0, 0.0, 0.0 ],
-									"style" : "",
-									"text" : "0.157607 -3.016766 0"
+									"style" : ""
 								}
 
 							}
@@ -274,8 +266,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 260.0, 446.285706, 47.0, 22.0 ],
-									"style" : "",
-									"text" : "red"
+									"style" : ""
 								}
 
 							}
@@ -469,9 +460,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 273.5, 272.0, 130.0, 36.0 ],
+									"patching_rect" : [ 269.5, 272.0, 130.0, 36.0 ],
 									"style" : "",
-									"text" : "messages jit.phys.ghost object",
+									"text" : "messages to jit.phys.ghost object",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -498,7 +489,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 159.5, 272.0, 89.0, 36.0 ],
+									"patching_rect" : [ 155.5, 272.0, 89.0, 36.0 ],
 									"style" : "",
 									"text" : "messages to internal js",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -557,7 +548,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 10.0, 10.0, 348.014557, 57.567627 ]
+									"patching_rect" : [ 10.0, 10.0, 348.014526, 57.567627 ]
 								}
 
 							}
@@ -768,22 +759,9 @@
  ],
 						"styles" : [ 							{
 								"name" : "afxyellow",
-								"tab" : 								{
-									"elementcolor" : [ 0.451979, 0.451979, 0.451979, 1.0 ],
-									"textcolor_inverse" : [ 0.881305, 0.881305, 0.881305, 1.0 ],
-									"color" : [ 0.679508, 0.55813, 0.006126, 1.0 ]
-								}
-,
-								"comment" : 								{
-									"fontname" : [ "Arial" ],
-									"textcolor" : [ 0.501961, 0.501961, 0.0, 1.0 ],
-									"fontsize" : [ 24.0 ]
-								}
-,
 								"message" : 								{
 									"fontname" : [ "Arial" ],
 									"textcolor_inverse" : [ 1.0, 0.818637, 0.0, 1.0 ],
-									"fontsize" : [ 30.0 ],
 									"bgfillcolor" : 									{
 										"type" : "gradient",
 										"color1" : [ 0.204102, 0.125198, 0.002398, 1.0 ],
@@ -793,7 +771,20 @@
 										"proportion" : 0.39,
 										"autogradient" : 0.79
 									}
-
+,
+									"fontsize" : [ 30.0 ]
+								}
+,
+								"comment" : 								{
+									"fontname" : [ "Arial" ],
+									"textcolor" : [ 0.501961, 0.501961, 0.0, 1.0 ],
+									"fontsize" : [ 24.0 ]
+								}
+,
+								"tab" : 								{
+									"textcolor_inverse" : [ 0.881305, 0.881305, 0.881305, 1.0 ],
+									"color" : [ 0.679508, 0.55813, 0.006126, 1.0 ],
+									"elementcolor" : [ 0.451979, 0.451979, 0.451979, 1.0 ]
 								}
 ,
 								"multislider" : 								{
@@ -860,8 +851,8 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
-							"architecture" : "x86",
+							"revision" : 0,
+							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,

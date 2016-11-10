@@ -2,7 +2,7 @@
 <COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
   <asset><contributor><author></author><authoring_tool>FBX COLLADA exporter</authoring_tool><comments></comments></contributor><created>2014-02-15T01:09:49Z</created><keywords></keywords><modified>2014-02-15T01:09:49Z</modified><revision></revision><subject></subject><title></title><unit meter="0.010000" name="centimeter"></unit><up_axis>Y_UP</up_axis></asset>
   <library_images>
-    <image id="file2-image" name="file2"><init_from>file:///Users/Stephan/Desktop/Freelance/Leap Motion/Hands/Rig/High Quality Base/Maps/leapmotion_basehand_diffuse.jpg</init_from></image>
+    <image id="file2-image" name="file2"><init_from>file:./leapmotion_basehand_diffuse.jpg</init_from></image>
   </library_images>
   <library_materials>
     <material id="blinn3" name="blinn3">

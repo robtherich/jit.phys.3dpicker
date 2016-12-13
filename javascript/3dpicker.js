@@ -7,7 +7,7 @@ var inited = false;
 // the regular expression for determining if colliding body is a phys.multiple instance, and if so what the cell indices are.
 // makes the determination if the name ends with one or more underscores followed by a number, 
 // so don't name your normal phys.body objects anything like "pbody_1" or it will identify as a phys.multiple instance
-var re = /([^_]+)_(\d)_?(\d?)_?(\d?)/;
+var re = /([^_]+)_(\d+)_?(\d*)_?(\d*)/;
 
 // for updating the external phys.ghost transform
 var ghostanim = new JitterObject("jit.anim.node");
@@ -154,10 +154,17 @@ function collisions() {
 
 				contactposition = coldict["position"];
 				var splits = colbodyname.split(re);
-				
+
 				if(splits.length > 1) {
 					pmultname = splits[1];
-					cell_indices = splits.slice(2, splits.length-1);
+					cell_indices = splits.slice(2, splits.length);
+					var cnt = 0;
+					for(var a in cell_indices) {
+						if(cell_indices[a] !== "")
+							cnt++;
+					}
+					cell_indices = cell_indices.slice(0, cnt);
+
 					col_state = State.PMULT;
 					dpost("name: "+pmultname+", indices: "+cell_indices);
 					outlet(1, "name", pmultname);
